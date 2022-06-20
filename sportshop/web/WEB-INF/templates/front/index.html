@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SportShop</title>
+</head>
+<link rel="stylesheet" th:href="@{/static/css/common/header-footer.css}">
+<link rel="stylesheet" th:href="@{/static/css/index.css}">
+<body>
+<div th:replace="front/common/header-footer::header"></div>
+<div class="main-body">
+    <div class="search-box"></div>
+    <div class="info">
+        <div class="info-header">
+            <span >新品上市</span>
+            <span>
+                <a href="#">更多</a>
+            </span>
+        </div>
+        <div class="info-body">
+            <span th:each="goods:${goodsList}" class="img-span">
+                <p><a href="#"><img th:src="@{/}+${goods.goods_pic}" alt="商品图片"></a></p>
+                <p><a href="#" th:text="${goods.goods_name}"></a></p>
+                <p th:text="${'￥:'+ goods.market_price}"></p>
+            </span>
+        </div>
+    </div>
+</div>
+<div th:replace="front/common/header-footer::footer"></div>
+</body>
+</html>

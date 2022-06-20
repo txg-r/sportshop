@@ -1,0 +1,4 @@
+# Project exclude paths
+/out/
+/sportshop_admin/target/
+/web16-sportshop/target/

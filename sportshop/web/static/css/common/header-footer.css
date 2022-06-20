@@ -1,0 +1,77 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* flex布局-start */
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 1200px;
+    background-color: #d4dddc;
+    margin: 0 auto;
+}
+
+.header-container { /* 我们希望 header 采用固定的高度，只占用必须的空间 */
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    height: 300px;
+    flex: 0 0 auto;
+}
+
+.main-body {
+    /* 将 flex-grow 设置为1，该元素会占用全部可使用空间
+       而其他元素该属性值为0，因此不会得到多余的空间*/
+    /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+    background-color: #ffffff;
+    flex: 1 0 auto;
+}
+
+footer {
+    /* 和 header 一样，footer 也采用固定高度*/
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    height: 50px;
+    flex: 0 0 auto;
+    background-color: #8ab9cd;
+    text-align: center;
+    line-height: 50px;
+    font-size: 12px;
+}
+
+
+#header-background{
+    height: 270px;
+    background-image: url("../../img/header-1.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#navigation{
+    height: 30px;
+    background-color: #89b9cd;
+}
+
+#navigation>span{
+    display: inline-block;
+    height: 100%;
+    width: 12.5%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+#navigation>span:nth-child(1){
+    margin-left: 12.5%;
+}
+
+#navigation a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#navigation a:hover{
+    color: #ffff00;
+}

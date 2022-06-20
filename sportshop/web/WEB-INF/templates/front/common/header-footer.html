@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" th:href="@{/static/css/common/header-footer.css}">
+<script th:src="@{/static/js/common/jQuery.js}"></script>
+<script th:src="@{/static/js/common/header-footer.js}"></script>
+<body>
+<div class="header-container" th:fragment="header">
+    <div id="header-background"></div>
+    <div id="navigation">
+        <span id="main">
+            <a href="#">网站首页</a>
+        </span>
+        <span id="produce-list">
+            <a href="#">商品列表</a>
+        </span>
+        <span id="user-info">
+            <a href="#">我的信息</a>
+        </span>
+        <span id="user-cart">
+            <a href="#">我的购物车</a>
+        </span>
+        <span id="order-list">
+            <a href="#">我的订单</a>
+        </span>
+        <span id="contact">
+            <a href="#">联系我们</a>
+        </span>
+    </div>
+</div>
+<div class="main-body"></div>
+<footer th:fragment="footer">
+    版权所有：   体育商城管理系统
+</footer>
+</body>
+</html>

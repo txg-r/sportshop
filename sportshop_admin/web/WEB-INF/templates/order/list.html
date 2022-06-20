@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet"
+        href="static/css/pintuer.css">
+  <link rel="stylesheet"
+        href="static/css/admin.css">
+  <script src="static/js/jquery.js"></script>
+  <script src="static/js/pintuer.js"></script>
+  <style>
+    .active {
+      background-color: #0099ff;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head">
+    <strong class="icon-reorder">订单列表</strong> <a href=""
+                                                  style="float:right; display:none;">添加字段</a>
+  </div>
+
+  <table class="table table-hover text-center" width="100%">
+    <tr>
+      <th width="15%">编号</th>
+      <th  width="10%">订单金额</th>
+      <th  width="10%">下单日期</th>
+      <th  width="20%">收货地址</th>
+      <th  width="10%">订单状态</th>
+      <th>操作</th>
+    </tr>
+
+    <tr th:each="order:${page.data}">
+      <td th:text="${order.order_id}">bcaed0cb-e365-47a1-857c-74a7036f4a1e</td>
+      <td th:text="${order.order_jine}">190</td>
+      <td th:text="${order.order_time}">2018-12-18 17:08:50</td>
+      <td th:text="${order.order_address}">山西省太原市</td>
+      <td>
+        <span th:if="${order.order_zhuangtai == 0}">待发货</span>
+        <span th:if="${order.order_zhuangtai == 1}">已发货</span>
+        <span th:if="${order.order_zhuangtai == 2}">已收货</span>
+        <span th:if="${order.order_zhuangtai == 3}">已完成</span>
+      </td>
+      <td>
+        <a class="button border-main"
+           th:href="${'order?action=deliverGoods&order_id='+order.order_id}">
+          <span class="icon-edit"></span>
+          发货
+        </a>
+        <a class="button border-red"
+           th:href="${'order?action=getOrderDetail&order_id='+order.order_id}">
+          <span class="icon-trash-o"></span>
+          订单明细
+        </a>
+        <!-- 已完成的订单才显示删除超链接 -->
+        <a class="button border-red"
+           th:href="${'order?action=removeOrder&order_id='+order.order_id}">
+          <span class="icon-trash-o"></span>
+          删除
+        </a>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="80">
+        <div class="pagelist">
+          <a th:class="${page.pageNo==1?'nocls':''}"
+             th:href="${'order?action=getPage&pageNo=1&pageSize=5&queryWord='+queryWord}">
+            首页
+          </a>
+          <a th:class="${page.pageNo==1?'nocls':''}"
+             th:href="${'order?action=getPage&pageNo='+(page.pageNo-1)+'&pageSize=5&queryWord='+queryWord}">
+            上一页
+          </a>
+          <!-- 当前页显示在span里面,其它页点击后跳转页面 -->
+          <a th:each="n:${#numbers.sequence(page.pageNo-2>=1?page.pageNo-2:1,page.pageNo+2<=page.totalPage?page.pageNo+2:page.totalPage)}"
+             th:href="${'order?action=getPage&pageNo='+n+'&pageSize=5&queryWord='+queryWord}"
+             th:text="${n}" th:class="${n==page.pageNo?'active':''}">
+            第某页
+          </a>
+          <a th:class="${page.pageNo==page.totalPage?'nocls':''}"
+             th:href="${'order?action=getPage&pageNo='+page.getNextPageNo()+'&pageSize=5&queryWord='+queryWord}">
+            下一页
+          </a>
+          <a th:class="${page.pageNo==page.totalPage?'nocls':''}"
+             th:href="${'order?action=getPage&pageNo='+page.totalPage+'&pageSize=5&queryWord='+queryWord}">
+            尾页
+          </a>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet"
+          href="static/css/pintuer.css">
+    <link rel="stylesheet"
+          href="static/css/admin.css">
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/axios.js"></script>
+    <script src="static/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 修改会员密码</strong></div>
+    <div class="body-content">
+        <form class="form-x">
+            <input type="hidden" name="action" value="updateAdminPassword">
+            <div class="form-group">
+                <div class="">
+                    <label th:text="${'管理员帐号：'+session.admin.username}"></label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;">
+
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>原始密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" id="pass" name="userPwd" size="50" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>新密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" id="newpass" name="newPwd" size="50" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>确认新密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" name="rnewpass" size="50" placeholder="请再次输入新密码" data-validate="required:请再次输入新密码,repeat#newPwd:两次输入的密码不一致" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <p style="color: red" id="submitError"></p>
+                    <button class="button bg-main icon-check-square-o" type="button" id="change-submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $("#change-submit").click(() => {
+        let userPwd = $("#pass").val();
+        let newPwd = $("#newpass").val();
+        axios.post("admin",`action=updateAdminPassword&userPwd=${userPwd}&newPwd=${newPwd}`).then((response) => {
+            if (response.data===true){
+                window.parent.location.reload();
+            }else {
+                $("#submitError").text(response.data);
+            }
+            console.log(response.data)
+        },()=>{
+            alert("异常错误");
+        })
+    })
+</script>
+</body></html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>订单详情</title>
+    <link rel="stylesheet" href="css/orderDetail.css">
+</head>
+
+<body class="body" leftmargin="0" rightmargin="0">
+<table cellspacing="1" cellpadding="0" width="100%" border="0"
+       bgcolor="#F7F3F7">
+    <tr height="26">
+        <td class="blackTitle" align="center">商品名称</td>
+        <td class="blackTitle" align="center">单价</td>
+        <td class="blackTitle" align="center">数量</td>
+        <td class="blackTitle" align="center">总价</td>
+    </tr>
+    <tr class="text" align="center" bgcolor="#FFFFFF" th:each="orderitem:${orderitemList}">
+        <td th:text="${orderitem.goods.goods_name}"></td>
+        <td th:text="${orderitem.goods.mall_price}"></td>
+        <td th:text="${orderitem.goods_num}"></td>
+        <td th:text="${orderitem.goods.mall_price*orderitem.goods_num}"></td>
+    </tr>
+</table>
+</body>
+</html>

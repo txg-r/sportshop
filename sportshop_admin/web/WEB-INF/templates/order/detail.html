@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="<%=basePath%>">
+
+    <title>My JSP 'detail.jsp' starting page</title>
+
+    <link rel="stylesheet"
+          href="static/css/pintuer.css"/>
+    <link rel="stylesheet"
+          href="static/css/admin.css"/>
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/pintuer.js"></script>
+    <style>
+        #order_detail{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #order_detail td{
+            border: 1px solid black;
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="panel admin-panel margin-top">
+    <div class="panel-head" id="add">
+        <strong><span class="icon-pencil-square-o"></span>订单明细</strong>
+    </div>
+    <div class="body-content" styie="text-align:center">
+        <table id="order_detail">
+            <tr>
+                <th>明细编号</th>
+                <th>商品名</th>
+                <th>商品价格</th>
+                <th>购买数量</th>
+                <th>金额</th>
+            </tr>
+
+            <tr th:each="orderitem:${orderitemList}">
+                <td th:text="${orderitem.orderitem_id}">明细编号</td>
+                <td th:text="${orderitem.goods.goods_name}">商品名</td>
+                <td th:text="${orderitem.goods.mall_price}">商品价格</td>
+                <td th:text="${orderitem.goods_num}">购买数量</td>
+                <td th:text="${orderitem.goods.mall_price*orderitem.goods_num}">金额</td>
+            </tr>
+        </table>
+
+        <div class="form-group">
+            <div class="field">
+                <button class="button bg-main icon-check-square-o"
+                        onclick="back()">返回
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function back() {
+        //document.referrer为上次访问页面的地址
+        window.location.href = document.referrer;
+    }
+</script>
+</body>
+</html>

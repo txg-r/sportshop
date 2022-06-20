@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title>商品</title>
+    <link rel="stylesheet" href="static/css/pintuer.css">
+    <link rel="stylesheet" href="static/css/admin.css">
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/pintuer.js"></script>
+    <style>
+        .active {
+            background-color: #0099ff;
+            color: #ffffff;
+        }
+    </style>
+    <script>
+        function change_search() {
+            location.href = "goods?action=getPage&queryWord=" + $("#keyword").val() + "&pageNo=1&pageSize=5";
+        }
+    </script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head">
+        <strong class="icon-reorder">商品列表</strong>
+    </div>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li><a class="button border-main icon-plus-square-o"
+                   href="goods?action=toAdd"> 添加商品</a></li>
+            <li>请输入商品名称关键字：
+                <input type="text" name="keyword" id="keyword" class="input"
+                       style="width:200px; line-height:17px;display:inline-block"
+                       th:value="${queryWord}"/>
+                <a href="javascript:void(0)" class="button border-main icon-search" onclick="change_search()"> 搜索</a>
+            </li>
+        </ul>
+    </div>
+    <table class="table table-hover text-center">
+        <tr>
+            <th width="10%">编号</th>
+            <th>商品名称</th>
+            <th>图片</th>
+            <th>商品描述</th>
+            <th>类别</th>
+            <th>市场价</th>
+            <th>商城价</th>
+            <th>库存量</th>
+            <th>上市时间</th>
+            <th width="310">操作</th>
+        </tr>
+
+        <tr th:each="goods:${page.data}">
+            <td th:text="${goods.goods_id}">1</td>
+            <td th:text="${goods.goods_name}">
+                <font color="#00CC99"> 篮球</font>
+            </td>
+            <td>
+                <img th:src="${goods.goods_pic}" width="60" height="60" border="0">
+            </td>
+            <td th:utext="${goods.goods_miaoshu}">很好的篮球</td>
+            <td th:text="${goods.catelog.catelog_name}">球类</td>
+            <td th:text="${goods.market_price}">100</td>
+            <td th:text="${goods.mall_price}">80</td>
+            <td th:text="${goods.stock_num}">97</td>
+            <td th:text="${goods.enter_date}">2018-12-07</td>
+            <td>
+                <div class="button-group">
+                    <a class="button border-main" th:href="${'goods?action=toUpdate&goods_id='+goods.goods_id}"><span
+                            class="icon-edit"></span> 修改</a>
+                    <a class="button border-green"
+                       th:href="${'goods?action=downloadPic&goods_pic='+goods.goods_pic}">
+                        <span class="icon-align-center"></span>
+                        下载
+                    </a>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="80">
+                <div class="pagelist">
+                    <a th:class="${page.pageNo==1?'nocls':''}"
+                       th:href="${'goods?action=getPage&pageNo=1&pageSize=5&queryWord='+queryWord}">
+                        首页
+                    </a>
+                    <a th:class="${page.pageNo==1?'nocls':''}"
+                       th:href="${'goods?action=getPage&pageNo='+(page.pageNo-1)+'&pageSize=5&queryWord='+queryWord}">
+                        上一页
+                    </a>
+                    <!-- 当前页显示在span里面,其它页点击后跳转页面 -->
+                    <a th:each="n:${#numbers.sequence(page.pageNo-2>=1?page.pageNo-2:1,page.pageNo+2<=page.totalPage?page.pageNo+2:page.totalPage)}"
+                       th:href="${'goods?action=getPage&pageNo='+n+'&pageSize=5&queryWord='+queryWord}"
+                       th:text="${n}" th:class="${n==page.pageNo?'active':''}">
+                        第某页
+                    </a>
+                    <a th:class="${page.pageNo==page.totalPage?'nocls':''}"
+                       th:href="${'goods?action=getPage&pageNo='+page.getNextPageNo()+'&pageSize=5&queryWord='+queryWord}">
+                        下一页
+                    </a>
+                    <a th:class="${page.pageNo==page.totalPage?'nocls':''}"
+                       th:href="${'goods?action=getPage&pageNo='+page.totalPage+'&pageSize=5&queryWord='+queryWord}">
+                        尾页
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

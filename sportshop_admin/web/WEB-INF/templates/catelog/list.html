@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title>商品类别</title>
+    <link rel="stylesheet"
+          href="static/css/pintuer.css">
+    <link rel="stylesheet"
+          href="static/css/admin.css">
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head">
+        <strong class="icon-reorder">商品分类列表</strong>
+    </div>
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left:10px;">
+            <li><a class="button border-main icon-plus-square-o"
+                   href="catelog?action=toAdd">添加商品类别</a></li>
+        </ul>
+    </div>
+    <table class="table table-hover text-center">
+        <tr>
+            <th width="10%">分类编号</th>
+            <th>分类名称</th>
+            <th>分类描述</th>
+        </tr>
+        <tr th:each="catelog:${catelogList}">
+            <td th:text="${catelog.catelog_id}">1</td>
+            <td th:text="${catelog.catelog_name}">健身</td>
+            <td th:text="${catelog.catelog_miaoshu}">很好用的健身器材</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>我的订单</title>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+    <meta http-equiv="description" content="This is my page"/>
+
+    <link href="css/layout.css" type="text/css" rel="stylesheet"/>
+
+    <script src="js/public.js"></script>
+    <!-- 删除页面自带的script标签 -->
+</head>
+
+<body>
+<!-- 包含头部页面 -->
+<div th:replace="inc/top::#common-top"></div>
+<div class="page_row">
+    <!--左边的 -->
+    <div class="page_main_msg left">
+        <div class="left_row">
+            <div class="list pic_news">
+                <div class="list_bar">&nbsp;我的订单</div>
+                <table width="99%" border="0" cellpadding="2" cellspacing="1"
+                       bgcolor="#FFFFFF" align="center" style="margin-top: 8px">
+                    <tr align="center" bgcolor="#FAFAF1" height="22">
+                        <td>订单编号</td>
+                        <td>金额</td>
+                        <td>下单时间</td>
+                        <td>订单状态</td>
+                        <td>编辑</td>
+                    </tr>
+                    <tr align='center' bgcolor="#FFFFFF" height="22" th:each="order:${orders}">
+                        <td th:text="${order.order_id }"></td>
+                        <td th:text="${order.order_jine}"></td>
+                        <td th:text="${order.order_time }"></td>
+                        <td>
+                            <span th:if="${order.order_zhuangtai == 0}">待发货</span>
+                            <span th:if="${order.order_zhuangtai == 1}">已发货</span>
+                            <span th:if="${order.order_zhuangtai == 2}">已收货</span>
+                            <span th:if="${order.order_zhuangtai == 3}">已完成</span>
+                        </td>
+                        <td>
+                            <a th:href="${'myOrder?action=queryOrderDetail&order_id='+ order.order_id}" target="_blank">订单明细</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- 右边的用户登录。-->
+    <div th:replace="inc/userLogin::#common-login"></div>
+    <!-- 右边的用户登录。-->
+    <div style="clear: both"></div>
+</div>
+
+<!-- 包含尾部页面 -->
+<div th:replace="inc/foot::#F"></div>
+</body>
+</html>

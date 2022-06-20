@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="sportshop_admin_test">
+    <output-path>$PROJECT_DIR$/out/artifacts/sportshop_admin_test</output-path>
+    <root id="root">
+      <element id="dir-copy" path="$USER_HOME$/Desktop/javaWeb阶段项目-体育商城/2.后台管理系统资料/后台项目已编译/tysc_admin" />
+    </root>
+  </artifact>
+</component>
